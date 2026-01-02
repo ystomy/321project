@@ -1,8 +1,25 @@
-﻿[System.Serializable]
+﻿// このクラスは「カードの事実」だけを持つ
+// 表裏・公開状態・演出は CardView 側で管理する
+
+[System.Serializable]
 public class Card
 {
-    public int suit;   // 0:♠ 1:♥ 2:♦ 3:♣  / 4:Joker
-    public int number; // 1-13 / Jokerは0,1
-    public int value;    // BJ計算用（A=11とか）
+    // スート種別
+    // 0:♠ 1:♥ 2:♦ 3:♣ / 4:Joker
+    public int suit;
+
+    // カード番号
+    // 通常カード：1〜13（A〜K）
+    // Joker：0 または 1（識別用）
+    public int number;
+
+    // 数値計算用の値
+    // 表示用の number とは別
+    // 例：ブラックジャックでは A=11 / 絵札=10 など
+    public int value;
+
+    // 一意識別子
+    // デバッグ・ログ・Dictionaryキー用
+    // 「suit-number」の組み合わせでカードを特定する
     public string Id => $"{suit}-{number}";
 }
