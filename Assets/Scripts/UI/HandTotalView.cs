@@ -1,23 +1,36 @@
 using UnityEngine;
+using TMPro;
 
 public class HandTotalView : MonoBehaviour
 {
-    // 手札の合計値をUIに表示する役割
-    // 計算は行わない（表示専用）
-    // 表示する値は PlayerStatus.handTotal を参照する
+    // 手札の合計値表示用テキスト
+    // 変動する数値表示用
+    [SerializeField]
+    private TMP_Text valueText;
 
-    // カードの表裏や isRevealed の判定は
-    // ここでは一切関知しない
+    // 表示専用クラス
+    // 計算・カード管理・ルール判断は一切行わない
 
-    void Start()
+    /// <summary>
+    /// 手札合計値をUIに反映する
+    /// PlayerStatus.handTotal の再計算後に呼ばれる想定
+    /// </summary>
+    public void UpdateTotal(int handTotal)
     {
-        // 初期表示用
-        // ゲーム開始時の handTotal をUIに反映する想定
+        valueText.text = handTotal.ToString();
     }
 
-    void Update()
+    public void SetValue(int total)
     {
-        // 毎フレーム更新はしない予定
-        // 値が変わったタイミングで外部から呼ばれる設計にする
+        valueText.text = total.ToString();
+    }
+
+    /// <summary>
+    /// 初期化用（任意）
+    /// ゲーム開始時に一度だけ呼ぶ
+    /// </summary>
+    public void Init(PlayerStatus status)
+    {
+        UpdateTotal(status.handTotal);
     }
 }

@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     // 追加ドローが可能かどうか
     public bool canExtraDraw;
 
+    //ハンコンから出た計算を受け取る
+    public HandController playerHand;
+
+
     // --------------------
     // 追加ドロー条件チェック
     // --------------------
@@ -48,8 +52,6 @@ public class GameManager : MonoBehaviour
         // 追加ドローの代償として運を消費
         player.luck -= 5;
 
-        // 状態が変わったので再判定
-        CheckExtraDrawCondition();
     }
 
     // --------------------
@@ -57,24 +59,20 @@ public class GameManager : MonoBehaviour
     // --------------------
     void AddCardToHand(Card card)
     {
-        // 手札合計値を更新
-        // ※ここではカードリスト管理ではなく数値管理のみ
-        player.handTotal += card.value;
-        
+        playerHand.AddCard(card); // HandController側で生成＆計算
+
     }
 
-    // --------------------
-    // 手札合計計算（予備・汎用）
-    // --------------------
-    int GetHandTotal(List<Card> hand)
+    void Start()
     {
-        int total = 0;
-
-        // 手札内のカード価値を合算
-        foreach (var card in hand)
-        {
-            total += card.value; 
-        }
-        return total;
+        playerHand.OnHandTotalChanged += OnPlayerHandTotalChanged;
     }
+
+    void OnPlayerHandTotalChanged(int total)
+    {
+        player.handTotal = total;
+        CheckExtraDrawCondition();
+    }
+
+
 }

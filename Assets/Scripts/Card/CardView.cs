@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,6 +9,8 @@ using DG.Tweening;
 
 public class CardView : MonoBehaviour
 {
+    public Card card;
+
     // 表面・裏面のスプライト
     public Sprite frontSprite;
     public Sprite backSprite;
@@ -16,7 +19,10 @@ public class CardView : MonoBehaviour
     SpriteRenderer sr;
 
     // 現在カードが表向きかどうか
-    bool isFaceUp;
+    public bool isFaceUp;
+
+    // カードが一度表になったかどうか（42ルールで加算）
+    public bool isRevealed;
 
     // フリップ演出中かどうか（多重操作防止用）
     bool isFlipping;
@@ -45,6 +51,9 @@ public class CardView : MonoBehaviour
     // 回転・位置演出を親と分離するための子Transform
     [SerializeField]
     Transform visual;
+
+    public event Action<CardView> OnRevealed;
+
 
     void Awake()
     {
@@ -100,6 +109,17 @@ public class CardView : MonoBehaviour
         Flip();
     }
 
+    // 表示したことのあるカードか
+    void RevealIfFirstTime()
+    {
+        if (isRevealed) return;
+
+        isRevealed = true;
+        Debug.Log($"Reveal! {card}");
+        OnRevealed?.Invoke(this);
+    }
+
+
     // カードを回転させて表裏を切り替える
     void Flip()
     {
@@ -113,10 +133,28 @@ public class CardView : MonoBehaviour
                 isFaceUp = !isFaceUp;
                 sr.sprite = isFaceUp ? frontSprite : backSprite;
 
+                //　表になった瞬間をチェック
+                if (isFaceUp)
+                {
+                    RevealIfFirstTime();
+                }
+
                 // 元の角度に戻す
                 transform.DOLocalRotate(Vector3.zero, 0.15f)
                     .OnComplete(() => isFlipping = false);
             });
+    }
+
+    public void FlipFaceUp()
+    {
+        if (isFaceUp) return;
+
+        isFaceUp = true;
+        sr.sprite = frontSprite;
+
+        // 初めて表になった瞬間だけ
+        RevealIfFirstTime();
+        
     }
 
     void OnMouseEnter()
@@ -149,4 +187,14 @@ public class CardView : MonoBehaviour
         );
     }
 
+    public void Init(Card cardData)
+    {
+        card = cardData;
+
+        var hand = GetComponentInParent<HandController>();
+        if (hand != null)
+        {
+            hand.Register(this);
+        }
+    }
 }

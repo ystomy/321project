@@ -16,7 +16,30 @@ public class Card
     // 数値計算用の値
     // 表示用の number とは別
     // 例：ブラックジャックでは A=11 / 絵札=10 など
-    public int value;
+    public int value
+    {
+        get
+        {
+            if (number > 10) return 10;
+            return number;
+        }
+    }
+
+    public int value42
+    {
+        get
+        {
+            // ジョーカー
+            if (suit == 4) return 11;
+
+            // A
+            if (number == 1) return 11;
+
+            // 通常カード
+            return value;
+        }
+    }
+
 
     // 一意識別子
     // デバッグ・ログ・Dictionaryキー用

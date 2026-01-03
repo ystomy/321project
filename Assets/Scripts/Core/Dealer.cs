@@ -85,6 +85,9 @@ public class Dealer : MonoBehaviour
         GameObject go = Instantiate(cardPrefab, root);
         CardView view = go.GetComponent<CardView>();
 
+        // カードのデータをカードビューに渡す
+        view.Init(card);
+
         // カードの見た目を設定
         view.SetCard(spriteDB.GetSprite(card));
         view.SetFace(faceUp);
