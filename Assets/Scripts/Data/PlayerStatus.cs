@@ -7,6 +7,9 @@ public class PlayerStatus
     // 「足し引きの履歴」は持たない
     public int handTotal;
 
+    // 現在表示したカードの数
+    public int handCount;
+
     // プレイヤーの運（補正値）
     // 基本値は100を基準とした相対値
     // カード配分・イベント・スキル効果の

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 // ゲーム全体の進行・判定を管理するクラス
@@ -26,13 +25,19 @@ public class GameManager : MonoBehaviour
     // --------------------
     // 追加ドロー条件チェック
     // --------------------
-    public void CheckExtraDrawCondition()
+    void CheckExtraDraw()
     {
-        // 手札合計が一定値以上なら追加ドロー解禁
-        canExtraDraw = player.handTotal >= 43;
+        bool can =
+            player.handCount == 6 &&
 
+            // 手札合計が一定値以上なら追加ドロー解禁
+            player.handTotal <= 42 &&
+
+            player.luck >= 5;
+
+        playerHand.AreAllCardsRevealed();
         // UI側のボタン表示／有効状態を更新
-        ui.SetExtraDrawButton(canExtraDraw);
+        ui.SetExtraDrawButton(can);
     }
 
     // --------------------
@@ -41,19 +46,22 @@ public class GameManager : MonoBehaviour
     public void ExtraDraw()
     {
         // 条件未達なら何もしない
-        if (!canExtraDraw) return;
+        if (player.luck < 5) return;
+
+        // 追加ドローの代償として運を消費
+        player.luck -= 5;
 
         // 山札から1枚引く
         Card card = deck.DrawCard();
 
         // プレイヤーの手札に反映
-        AddCardToHand(card);
+        playerHand.AddCard(card);
 
-        // 追加ドローの代償として運を消費
-        player.luck -= 5;
-
+        ui.SetExtraDrawButton(false); // 一旦閉じる
     }
 
+
+    
     // --------------------
     // 手札へカードを加算
     // --------------------
@@ -66,12 +74,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerHand.OnHandTotalChanged += OnPlayerHandTotalChanged;
+        playerHand.OnAllCardsRevealed += CheckExtraDraw;
     }
 
     void OnPlayerHandTotalChanged(int total)
     {
         player.handTotal = total;
-        CheckExtraDrawCondition();
+        CheckExtraDraw();
     }
 
 
