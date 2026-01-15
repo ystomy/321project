@@ -468,6 +468,8 @@ MonoBehaviour:
   playerHand: []
   dealerHand: []
   cardSpacing: 200
+  tableSpacing: 220
+  stackOffsetY: 30
   dealerData: {fileID: 11400000, guid: 1e71db6a495bc3b409641df5bf6ad647, type: 2}
   luckHeat: {fileID: 931157744}
 --- !u!114 &931157742
@@ -613,7 +615,7 @@ Transform:
   m_GameObject: {fileID: 1204091189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -240, y: 100, z: 0}
+  m_LocalPosition: {x: 0, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -653,8 +655,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -41.9, y: 0}
-  m_SizeDelta: {x: 55.1, y: 36.4055}
+  m_AnchoredPosition: {x: -31.9, y: 18.7}
+  m_SizeDelta: {x: 69.8967, y: 37.2759}
   m_Pivot: {x: 0.5000003, y: 0.50000006}
 --- !u!114 &1377628480
 MonoBehaviour:
@@ -678,8 +680,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 20ac227d51cf7544a8038c43a851a0a2, type: 2}
-  m_sharedMaterial: {fileID: 8417646801345453295, guid: 20ac227d51cf7544a8038c43a851a0a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e49e624b83200d4cb616e0398477e1d, type: 2}
+  m_sharedMaterial: {fileID: -3831474253711323826, guid: 7e49e624b83200d4cb616e0398477e1d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -703,8 +705,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1043,8 +1045,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -97.6616, y: -0.2742}
-  m_SizeDelta: {x: 140.9931, y: 38.6841}
+  m_AnchoredPosition: {x: -97.33, y: 18.5}
+  m_SizeDelta: {x: 145.7, y: 38.6841}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1906286138
 MonoBehaviour:
@@ -1068,8 +1070,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Total :'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 20ac227d51cf7544a8038c43a851a0a2, type: 2}
-  m_sharedMaterial: {fileID: 8417646801345453295, guid: 20ac227d51cf7544a8038c43a851a0a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e49e624b83200d4cb616e0398477e1d, type: 2}
+  m_sharedMaterial: {fileID: -3831474253711323826, guid: 7e49e624b83200d4cb616e0398477e1d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1093,8 +1095,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
